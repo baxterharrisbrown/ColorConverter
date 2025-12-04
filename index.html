@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Color Converter</h1>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="converter">Color Converter</button>
+            <button class="tab-button" data-tab="html-colors">HTML Colors</button>
+            <button class="tab-button" data-tab="ideal-contrast">Ideal Contrast</button>
+        </div>
+
+        <!-- Color Converter Tab -->
+        <div id="converter" class="tab-content active">
+            <div class="input-section">
+                <h2>Input Color</h2>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Hex</label>
+                        <input type="text" id="input-hex" placeholder="#RRGGBB">
+                    </div>
+                    <div class="input-group">
+                        <label>RGB</label>
+                        <div class="rgb-inputs">
+                            <input type="number" id="input-r" placeholder="R" min="0" max="255">
+                            <input type="number" id="input-g" placeholder="G" min="0" max="255">
+                            <input type="number" id="input-b" placeholder="B" min="0" max="255">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>HSL</label>
+                        <div class="hsl-inputs">
+                            <input type="number" id="input-h" placeholder="H" min="0" max="359.9" step="0.1">
+                            <input type="number" id="input-s" placeholder="S%" min="0" max="100" step="0.1">
+                            <input type="number" id="input-l" placeholder="L%" min="0" max="100" step="0.1">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>CMYK</label>
+                        <div class="cmyk-inputs">
+                            <input type="number" id="input-c" placeholder="C%" min="0" max="100" step="0.1">
+                            <input type="number" id="input-m" placeholder="M%" min="0" max="100" step="0.1">
+                            <input type="number" id="input-y" placeholder="Y%" min="0" max="100" step="0.1">
+                            <input type="number" id="input-k" placeholder="K%" min="0" max="100" step="0.1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2>Color Display</h2>
+                <div class="color-display" id="color-display"></div>
+
+                <div class="color-info">
+                    <h3>Color Values</h3>
+                    <div class="color-values" id="color-values"></div>
+
+                    <h3>Relative Luminance</h3>
+                    <div id="relative-luminance"></div>
+                </div>
+
+                <div class="contrast-section">
+                    <h3>Contrast Analysis</h3>
+                    <div class="contrast-grid">
+                        <div class="contrast-item" id="color-on-white">
+                            <div class="contrast-display"></div>
+                            <div class="contrast-info"></div>
+                        </div>
+                        <div class="contrast-item" id="color-on-black">
+                            <div class="contrast-display"></div>
+                            <div class="contrast-info"></div>
+                        </div>
+                        <div class="contrast-item" id="white-on-color">
+                            <div class="contrast-display"></div>
+                            <div class="contrast-info"></div>
+                        </div>
+                        <div class="contrast-item" id="black-on-color">
+                            <div class="contrast-display"></div>
+                            <div class="contrast-info"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grayscale-section">
+                    <h3>Grayscale</h3>
+                    <div class="grayscale-display" id="grayscale-display">
+                        <div class="grayscale-color"></div>
+                        <div class="grayscale-values"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HTML Colors Tab -->
+        <div id="html-colors" class="tab-content">
+            <h2>HTML Color Reference (140 Colors)</h2>
+            <div class="table-container">
+                <table id="html-colors-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                                <input type="text" class="filter-input" data-column="0" placeholder="Filter...">
+                            </th>
+                            <th>Color</th>
+                            <th>
+                                Web-Safe
+                                <select class="filter-input" data-column="2">
+                                    <option value="">All</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </th>
+                            <th>
+                                Basic
+                                <select class="filter-input" data-column="3">
+                                    <option value="">All</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </th>
+                            <th>
+                                Extended
+                                <select class="filter-input" data-column="4">
+                                    <option value="">All</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </th>
+                            <th>
+                                CGA#
+                                <input type="text" class="filter-input" data-column="5" placeholder="Filter...">
+                            </th>
+                            <th>
+                                CGA Name
+                                <input type="text" class="filter-input" data-column="6" placeholder="Filter...">
+                            </th>
+                            <th>
+                                CGA Alias
+                                <input type="text" class="filter-input" data-column="7" placeholder="Filter...">
+                            </th>
+                            <th>Hex</th>
+                            <th>RGB</th>
+                            <th>CMYK</th>
+                            <th>HSL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="html-colors-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Ideal Contrast Tab -->
+        <div id="ideal-contrast" class="tab-content">
+            <h2>Ideal Contrast Colors by Hue</h2>
+            <p>Select a hue value (0-359.9) to see colors with optimal contrast to both white and black (relative luminosity ≈ 0.1791287847)</p>
+
+            <div class="hue-selector">
+                <label for="hue-input">Hue (0-359.9):</label>
+                <input type="number" id="hue-input" min="0" max="359.9" step="0.1" value="0">
+                <input type="range" id="hue-slider" min="0" max="359.9" step="0.1" value="0">
+            </div>
+
+            <div class="ideal-contrast-display">
+                <div class="ideal-color-card">
+                    <h3>Ideal Contrast Color</h3>
+                    <div class="ideal-color-preview" id="ideal-color-preview"></div>
+                    <div class="ideal-color-info" id="ideal-color-info"></div>
+                    <div class="ideal-contrast-examples">
+                        <div class="contrast-example" id="ideal-on-white"></div>
+                        <div class="contrast-example" id="ideal-on-black"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
