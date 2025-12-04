@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeIdealContrast();
 
     // Set default color
-    updateColorFromRgb(100, 149, 237); // Cornflower Blue
+    updateColorFromRgb(255, 33, 122); // #FF217A
 });
 
 // Tab Management
